@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Testing and TDD: Stripping Away the Bullshit</h1>
+
+        <p>
+            Alright, so I'm a student that’s learning testing by doing (TDD). Most of the things I learned in school felt really dogmatic and where really preaching testing and TDD without really telling me problems it really solves. School had me thinking it's all rules with no explanations – mocking, testing pyramids, and coverage, like they're just shoving info down my throat. 
+        </p>
+
+        <p>
+            I never like when something is just told without the reason behind it. So, stumbled upon "Clean Agile" by Uncle Bob and a video called "TDD, where did it go all wrong.". These sources were really an big eye opener for me to understand the reason why testing and TDD were created. The talk by Ian Cooper gave an really good overview of the things that get wrongfully preached by other people. A lot of subjects I am going to cover will use a lot of the points he covert in his talk. 
+        </p>
+
+        <p>
+            My experience is that the parts that make TDD so powerful is that it forces you to look and create code that is decouplable. With the mindset of writing test up front you will create code that is easier to test and because of that code that is maintainable. It forces you to think about all the problems up front. This way it’s quite hard to create garbage code because you have to adhere to a few principles. But people still want their fast garbage code that kind of works. So TDD is sometimes thrown to the side for that reason.
+        </p>
+
+        <p>
+            But now I still haven’t given the MAIN reason why to test. It’s quite simple actually it’s something almost everyone has experienced. In the clean agile book uncle Bob tells a story about looking at some old code at an screen. You see it and think to yourself  “ugh this is an mess I should clean this up” But your next thought is, “I’m not touching it!”. Because if you touch it and break it then it will become yours. That is the fear of changing code. And that fear is something you try to fix with writing good tests. Tests may also help you that the code for your end users break, but this is main reason you have the test. It gives developers courage to change code when needed. I almost never read this reason online but I feel it’s strong reason to tests. It makes the path of doing the right thing for your codebase easier i.e. refactoring. It makes refactoring easy because you can change the implementation of the code without breaking the behavior.  
+
+        </p>
+
+        <p>
+            Testing sounds really good it gives really useful benefits so let’s get started you would think. But then you get to another dogmatic roadblock; the testing pyramid and the different type of tests. Everywhere online you read that you need to conform to 3 different types of test: “Unit tests, Integration test and end to end tests. You need to have these kinds of tests in the right amount otherwise your codebase won’t be maintainable they say. I and a lot of other sources call bullshit. To quote the grug brained developer: `in-between tests, grug hear shaman call "integration tests" sometime often with sour look on face. but grug say integration test sweet spot according to grug: high level enough test correctness of system, low level enough, with good debugger, easy to see what break’. You do not want to test implementation details for the most part. To have maintainable and useful tests you want to test the <strong>behavior</strong>.
+        </p>
+
+        <p>
+            We now know you need to tests the behavior, but how do we know what kind of behavior we want. Knowing the behaviors you want is something you want to discuss with client or users. You with them the kind of behaviors they want the system to have. A good way to describe this in a standard way is making use of the <strong>Given – When – Then</strong>. A user describes the standard kind of interaction and then a developer or someone with the mindset of an developer writes all the side effect and problems that could occur when doing that behavior. Then someone refines it into a good user story with the more technical specifications. Things like what will this API endpoint actually return in the values it has. With those definitions you have everything to get started with building. As an developer you can just use the <strong>Given – When – Then </strong> structure as the  <strong>behavior</strong> for your tests. 
+        </p>
+
+        <p>
+            Now that we have cleared the last few dogmatic roadblocks, and have the correct behaviors we can discuss how to write an behavior test. For most of backend web development you will most likely be creating an JSON API so I use that as an example. When you create such an API endpoint the consumer of the API will care about only one thing that is: “If I give this input do I get the expect result?” so that’s in the start the only thing YOU will care about. So start writing an tests with all the cases you have from the <strong>Given – When – Then structure</strong>. 
+        </p>
+
+        <p>
+            Now you understand how to write an behavior test but walked into a problem: `How do I call things like IO, external API’s or the database? For that we may need another heavily debated topic called mocking. Mocking is something that is overused a whole lot. You want to reach for it only when it is really necessary such as the examples given above. When you have something from outside that is really slow or impossible to get in a testing environment use mocking, that is the reason to use it. But most of the time that people use mocking you can use an alternative for example an database. I you have the option I would advice you use an in memory database for testing. An memory database fixes has two big advantages. 1. Its much faster because everything is in memory. 2. You can actually test writing and reading to an database real life database not faking the interaction with an mock. 
+        </p>
+
+        <p>
+            Now that you have your test written you can build the implementation so fast as possible. Just throw some code together ask chatgpt copy stackoverflow whatever you need to do to make it work. Then if your test passes you can look at the code you have written and think how you can write this in a more maintainable way. You now want to make it readable so that other developers also understand what you have written.  
+        </p>
+
+        <p>
+            That’s mostly it for the backend you do not need much more tests than that for the most part. But there are always exceptions when you want to test it. Some parts of the codebase do not have real understandable behavior so what should I do then? I would say just write a normal unit test for it. That way you know what the input and output are and you test all edge cases. This makes it harder for issues to occur in production and cost the company a lot of money. 
+
+        </p>
+
+        <p>
+            I’ve been praising TDD but that doesn’t mean it should be used everywhere. I think mostly on the frontend you shouldn’t use it. It makes not a lot of sense because you are defining the code for an user interface and creating an tests that stays the same is a lot harder than on the backend. But that doesn’t mean you should test. You test the flow you created after the code has been written. Then you can write the test to automate the clicking of the layout you have created. Something like playwright is quite useful to do this in a faster manner with their vscode extension where you can just click on the page an generate an test. 
+        </p>
+
+        <p>
+            So you see testing is a wild world of different opinions where finding an easy no-BS approach is hard. Try to not listen to much to the people that try to make testing harder than it has to be and keep thinking for yourself. So remember make tests for courage more Try to only write tests if it brings courage to the developers that the system works. Hopefully this makes your journey through the testing jungle an easier one.
+        </p>
+
+        <p>
+            References:
+
+            <ul>
+                <li>
+                    <a href="https://www.amazon.com/Clean-Agile-Basics-Robert-Martin/dp/0135781868">Clean Agile by Uncle Bob - Amazon</a>
+                </li>
+
+                <li>
+                    <a href="https://www.youtube.com/watch?v=EZ05e7EMOLM&t=2397s">TDD, Where did it go all wrong - YouTube</a>
+                </li>
+
+                <li>
+                    <a href="https://grugbrain.dev/">GrugBrain - Pragmatic Testing</a>
+                </li>
+            </ul>
+
+          
+
+        </p>
+
+
+    </body>
+</html>
